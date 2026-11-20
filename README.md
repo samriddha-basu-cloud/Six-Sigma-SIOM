@@ -4,7 +4,7 @@ A slide-style web page for pitching Black Belt-level Lean Six Sigma (DMAIC / DMA
 
 ## Open it
 - **On your laptop:** double-click `index.html`. It opens in any browser; no install needed.
-- **On iPad or phone:** turn on GitHub Pages (repo **Settings → Pages → Deploy from branch → `main` / root**). The page will then be at `https://samriddha-basu-cloud.github.io/six-sigma-siom/`.
+- **On iPad or phone:** turn on GitHub Pages (repo **Settings → Pages → Deploy from branch → `main` / root**). The page will then be at `https://samriddha-basu-cloud.github.io/Six-Sigma-SIOM/`.
 
 ## Using the deck
 - Next / previous: arrow buttons, ← → keys, or swipe on touch screens.
