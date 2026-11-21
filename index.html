@@ -4,16 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>SIOM Nashik · Six Sigma Consulting Projects 2027</title>
+<title>SIOM Nashik · S2C2 · Six Sigma Consulting Projects 2027</title>
+<link rel="icon" href="assets/s2c2-logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f7f7f5; --surface:#ffffff; --ink:#17181c; --muted:#61646b; --faint:#9a9ca3;
-    --line:#e6e6e2; --accent:#a3123a; --accent-soft:#fbeef1; --ok:#1f7a4d; --ok-soft:#eaf6ef;
-    --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.04);
-    --header-h:60px; --footer-h:64px;
+    --bg:#f7f7f5; --surface:#ffffff; --ink:#17181c; --muted:#5f626a; --faint:#9a9ca3;
+    --line:#e6e6e2; --accent:#b0122f; --accent-2:#e3242b; --accent-soft:#fcecef; --ok:#1f7a4d; --ok-soft:#eaf6ef;
+    --radius:16px; --shadow:0 1px 2px rgba(0,0,0,.04),0 6px 20px rgba(0,0,0,.05);
+    --shadow-lg:0 2px 4px rgba(0,0,0,.04),0 16px 40px rgba(0,0,0,.09);
+    --header-h:62px; --footer-h:64px; --ease:cubic-bezier(.2,.75,.2,1);
   }
   *{box-sizing:border-box}
   html,body{height:100%;margin:0}
@@ -21,34 +23,60 @@
     background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden;line-height:1.5}
   a{color:var(--accent)}
   button{font:inherit;color:inherit;cursor:pointer}
-  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+  img.blend{mix-blend-mode:multiply}
+
+  /* ---------- intro loader ---------- */
+  .intro{position:fixed;inset:0;z-index:100;background:#fff;display:grid;place-items:center;transition:opacity .6s ease,visibility 0s .6s}
+  .intro.done{opacity:0;visibility:hidden}
+  .intro-inner{display:flex;flex-direction:column;align-items:center;gap:14px;animation:introIn .8s var(--ease) both}
+  .intro img{width:150px;height:auto}
+  .intro .bar{width:120px;height:3px;border-radius:3px;background:var(--line);overflow:hidden}
+  .intro .bar::after{content:"";display:block;height:100%;width:40%;background:var(--accent);border-radius:3px;animation:load 1s ease-in-out infinite}
+  @keyframes introIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+  @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
 
   /* ---------- header ---------- */
   header{position:fixed;inset:0 0 auto 0;height:calc(var(--header-h) + env(safe-area-inset-top));
     padding:env(safe-area-inset-top) 16px 0;display:flex;align-items:center;gap:12px;
-    background:rgba(255,255,255,.9);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);z-index:20}
+    background:rgba(255,255,255,.88);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line);z-index:20}
   .brand{display:flex;align-items:center;gap:10px;min-width:0;background:none;border:0;padding:0}
-  .brand img{height:34px;width:auto;display:block}
-  .brand .wordmark{font-weight:700;letter-spacing:.02em;color:var(--accent);font-size:18px}
+  .brand img{display:block}
+  .brand .siom-h{height:32px;width:auto}
+  .brand .s2c2-h{height:40px;width:40px;object-fit:contain}
+  .brand .wordmark{font-weight:800;letter-spacing:.02em;color:var(--accent);font-size:18px}
+  .brand .vr{width:1px;height:26px;background:var(--line)}
   .brand .sub{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-left:1px solid var(--line);padding-left:10px}
   .spacer{flex:1}
-  .hbtn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
+  .hbtn{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:transform .2s var(--ease),box-shadow .2s,border-color .2s}
+  .hbtn:hover{border-color:#cfcfca;box-shadow:var(--shadow)}
+  .hbtn:active{transform:scale(.96)}
   .hbtn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);transition:width .35s ease}
+  .progress{position:absolute;left:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .5s var(--ease)}
 
   /* ---------- stage ---------- */
-  main{position:fixed;top:calc(var(--header-h) + env(safe-area-inset-top));bottom:calc(var(--footer-h) + env(safe-area-inset-bottom));left:0;right:0;overflow:hidden}
+  main{position:fixed;top:calc(var(--header-h) + env(safe-area-inset-top));bottom:calc(var(--footer-h) + env(safe-area-inset-bottom));left:0;right:0;overflow:hidden;background:var(--bg)}
   .slide{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;opacity:0;visibility:hidden;
-    transform:translateX(24px);transition:opacity .35s ease,transform .35s ease,visibility 0s .35s}
-  .slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease,transform .35s ease}
-  .slide.before{transform:translateX(-24px)}
-  .inner{max-width:1120px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,4vw,40px) 40px;min-height:100%;display:flex;flex-direction:column;justify-content:center}
+    transform:translateX(40px) scale(.985);transition:opacity .45s ease,transform .55s var(--ease),visibility 0s .55s}
+  .slide.active{opacity:1;visibility:visible;transform:none;transition:opacity .45s ease,transform .55s var(--ease)}
+  .slide.before{transform:translateX(-40px) scale(.985)}
+  .inner{position:relative;max-width:1120px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,4vw,40px) 44px;min-height:100%;display:flex;flex-direction:column;justify-content:center}
   .inner.top{justify-content:flex-start}
-  .eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 10px}
-  h1{font-size:clamp(30px,5.2vw,56px);line-height:1.08;letter-spacing:-.02em;margin:0 0 16px;font-weight:700}
-  h2{font-size:clamp(24px,3.6vw,38px);line-height:1.15;letter-spacing:-.015em;margin:0 0 10px;font-weight:700}
-  h3{font-size:17px;margin:0 0 6px;font-weight:600}
-  .lead{font-size:clamp(16px,1.7vw,19px);color:var(--muted);max-width:760px;margin:0 0 28px}
+
+  /* reveal animation: elements get --i via JS */
+  .slide:not(.play) .rv{opacity:0}
+  .slide.play .rv{animation:rise .7s var(--ease) backwards;animation-delay:calc(var(--i,0) * 65ms + 80ms)}
+  .slide.play .rv.pop{animation-name:pop}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes pop{from{opacity:0;transform:scale(.88) translateY(8px)}to{opacity:1;transform:none}}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+  .eyebrow::before{content:"";width:18px;height:2px;border-radius:2px;background:var(--accent)}
+  h1{font-size:clamp(32px,5.4vw,60px);line-height:1.06;letter-spacing:-.025em;margin:0 0 18px;font-weight:800}
+  h1 .hl{background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{font-size:clamp(25px,3.6vw,40px);line-height:1.14;letter-spacing:-.02em;margin:0 0 10px;font-weight:800}
+  h3{font-size:17px;margin:0 0 6px;font-weight:650}
+  .lead{font-size:clamp(16px,1.7vw,19px);color:var(--muted);max-width:780px;margin:0 0 28px}
   .muted{color:var(--muted)}
   .small{font-size:13px}
 
@@ -56,73 +84,118 @@
   .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
   .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
   .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+  .card.lift:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#dcdcd7}
   .card p{margin:0;color:var(--muted);font-size:15px}
-  .icon{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:12px}
-  .icon svg{width:20px;height:20px}
+  .icon{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:14px;transition:transform .35s var(--ease)}
+  .card.lift:hover .icon{transform:rotate(-6deg) scale(1.08)}
+  .icon svg{width:21px;height:21px}
 
   /* cover */
-  .cover-logo{height:72px;width:auto;margin-bottom:28px;align-self:flex-start}
-  .cover-logo-text{font-size:28px;font-weight:700;color:var(--accent);margin-bottom:28px}
+  .blobs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.38}
+  .blob.b1{width:420px;height:420px;background:#ffd5dc;top:-80px;right:-60px;animation:float1 14s ease-in-out infinite}
+  .blob.b2{width:340px;height:340px;background:#ffe9d6;bottom:-100px;right:22%;animation:float2 18s ease-in-out infinite}
+  .blob.b3{width:260px;height:260px;background:#e9ecff;top:30%;left:-80px;animation:float1 20s ease-in-out infinite reverse}
+  @keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
+  @keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-30px)}}
+  .cover-content{position:relative}
+  .cover-logos{display:flex;align-items:center;gap:18px;margin-bottom:26px;flex-wrap:wrap}
+  .cover-logos .siom-c{height:64px;width:auto}
+  .cover-logos .s2c2-c{height:96px;width:96px;object-fit:contain}
+  .cover-logos .vr{width:1px;height:56px;background:var(--line)}
+  .cover-logo-text{font-size:28px;font-weight:800;color:var(--accent)}
   .pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 32px}
-  .pill{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
-  .pill b{color:var(--accent);font-weight:600}
+  .pill{border:1px solid var(--line);background:rgba(255,255,255,.8);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:500}
+  .pill b{color:var(--accent);font-weight:650}
   .cta-row{display:flex;flex-wrap:wrap;gap:10px}
-  .btn{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:8px}
+  .btn{position:relative;overflow:hidden;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 18px;font-size:15px;font-weight:600;text-decoration:none;color:var(--ink);display:inline-flex;align-items:center;gap:8px;transition:transform .2s var(--ease),box-shadow .25s,border-color .25s}
+  .btn:hover{box-shadow:var(--shadow);border-color:#cfcfca}
+  .btn:active{transform:scale(.97)}
   .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-  .btn svg{width:18px;height:18px}
+  .btn.primary:hover{box-shadow:0 8px 24px rgba(176,18,47,.28)}
+  .btn svg{width:18px;height:18px;transition:transform .25s var(--ease)}
+  .btn:hover svg.arrow{transform:translateX(4px)}
 
   /* stats */
-  .stat{font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1}
-  .stat-label{margin-top:6px;color:var(--muted);font-size:14px}
+  .stat{font-size:clamp(30px,3.6vw,44px);font-weight:800;letter-spacing:-.03em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+  .stat-label{margin-top:8px;color:var(--muted);font-size:14px}
 
   /* criteria */
-  .crit-group h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 10px}
+  .crit-group h3{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin:0 0 10px}
   .crit{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
   .crit:first-of-type{border-top:0}
   .crit span:first-child{color:var(--muted)}
   .crit span:last-child{font-weight:600;text-align:right}
-  .note{margin-top:16px;border-radius:var(--radius);background:var(--ok-soft);color:#14532d;padding:14px 16px;font-size:15px;border:1px solid #cfe9da}
+  .note{margin-top:14px;border-radius:var(--radius);padding:14px 16px;font-size:15px;display:flex;gap:12px;align-items:flex-start}
+  .note svg{width:20px;height:20px;flex:0 0 auto;margin-top:1px}
+  .note.ok{background:var(--ok-soft);color:#14532d;border:1px solid #cfe9da}
+  .note.soft{background:var(--surface);border:1px dashed #d6d6d1;color:var(--muted)}
+  .note b{color:var(--ink)}
+  .note.ok b{color:#0f3d22}
 
   /* timeline */
   .timeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;position:relative}
-  .phase{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);text-align:left}
-  .phase .letter{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:18px;margin-bottom:12px}
-  .phase .when{font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+  .timeline::before{content:"";position:absolute;top:40px;left:32px;right:32px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:left;transform:scaleX(0);z-index:0;border-radius:2px}
+  .slide.play .timeline::before{animation:draw 1.4s var(--ease) .3s forwards}
+  @keyframes draw{to{transform:scaleX(1)}}
+  .phase{position:relative;z-index:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);text-align:left;transition:transform .3s var(--ease),box-shadow .3s}
+  .phase:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .phase .letter{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;display:grid;place-items:center;font-size:18px;margin-bottom:12px;box-shadow:0 0 0 6px #fff}
+  .phase .when{font-size:12px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
   .phase ul{margin:8px 0 0;padding-left:16px;color:var(--muted);font-size:14px}
   .phase li{margin:2px 0}
-  .phase[aria-expanded="false"] ul{display:none}
   .phase .more{font-size:13px;color:var(--faint);margin-top:6px}
-  .phase[aria-expanded="true"] .more{display:none}
 
-  /* lists */
+  /* deliverables */
+  .dlist{list-style:none;margin:0;padding:0;counter-reset:d}
+  .dlist li{counter-increment:d;display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line)}
+  .dlist li:first-child{border-top:0;padding-top:4px}
+  .dlist li::before{content:counter(d);flex:0 0 28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:13px;display:grid;place-items:center}
+  .dlist b{display:block;font-size:15px}
+  .dlist span{color:var(--muted);font-size:14px}
+  .cert{position:relative;overflow:hidden;border-radius:var(--radius);padding:24px;color:#fff;background:linear-gradient(135deg,#8e0f27,#c8172f 60%,#e3242b);box-shadow:0 14px 40px rgba(176,18,47,.25)}
+  .cert::after{content:"";position:absolute;inset:-40% -10% auto auto;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .cert .seal{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;margin-bottom:14px;animation:spinIn 1s var(--ease) both .4s}
+  .cert .seal svg{width:28px;height:28px}
+  @keyframes spinIn{from{transform:rotate(-120deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
+  .cert h3{font-size:20px;margin-bottom:8px}
+  .cert p{color:rgba(255,255,255,.9);font-size:15px;margin:0 0 10px}
+  .cert .tag{display:inline-block;background:#fff;color:var(--accent);font-weight:700;font-size:13px;border-radius:999px;padding:5px 12px}
   .check{list-style:none;padding:0;margin:0}
-  .check li{display:flex;gap:10px;padding:8px 0;font-size:15px}
+  .check li{display:flex;gap:10px;padding:7px 0;font-size:15px}
   .check li::before{content:"";flex:0 0 18px;height:18px;margin-top:2px;border-radius:50%;
-    background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23a3123a'%3E%3Cpath d='M8.2 13.6 4.6 10l-1.2 1.2 4.8 4.8 9-9-1.2-1.2z'/%3E%3C/svg%3E") center/12px no-repeat}
+    background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23b0122f'%3E%3Cpath d='M8.2 13.6 4.6 10l-1.2 1.2 4.8 4.8 9-9-1.2-1.2z'/%3E%3C/svg%3E") center/12px no-repeat}
 
   /* projects */
   .toolbar{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;position:sticky;top:0;background:var(--bg);padding:8px 0 10px;z-index:2}
-  .search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 12px}
+  .search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 12px;transition:border-color .2s,box-shadow .2s}
+  .search:focus-within{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
   .search svg{width:18px;height:18px;color:var(--faint);flex:0 0 auto}
   .search input{border:0;outline:0;background:transparent;font:inherit;font-size:16px;padding:11px 0;width:100%;color:var(--ink)}
   .chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
   .chips::-webkit-scrollbar{display:none}
-  .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:500;white-space:nowrap}
+  .chip{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:500;white-space:nowrap;transition:background .2s,color .2s,border-color .2s,transform .15s}
+  .chip:active{transform:scale(.95)}
   .chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
   .chip .n{opacity:.6;margin-left:4px;font-weight:400}
   .count{font-size:13px;color:var(--faint)}
   .plist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .proj{background:var(--surface);border:1px solid var(--line);border-radius:12px;text-align:left;padding:14px 16px;width:100%;display:block}
-  .proj:hover{border-color:#cfcfca}
+  .proj{background:var(--surface);border:1px solid var(--line);border-radius:14px;text-align:left;padding:14px 16px;width:100%;display:block;transition:border-color .2s,box-shadow .25s,transform .25s var(--ease)}
+  .proj:hover{border-color:#d4d4cf;box-shadow:var(--shadow);transform:translateY(-2px)}
+  .proj.in{animation:rise .45s var(--ease) backwards;animation-delay:calc(var(--i,0) * 25ms)}
   .proj-top{display:flex;align-items:flex-start;gap:10px}
   .proj-title{font-weight:600;font-size:15px;flex:1}
   .badge{font-size:11px;font-weight:700;letter-spacing:.04em;padding:3px 7px;border-radius:6px;background:var(--accent-soft);color:var(--accent);flex:0 0 auto}
   .badge.dmadv{background:#eef2ff;color:#3730a3}
-  .proj-cat{font-size:12px;color:var(--faint);margin-top:4px}
-  .proj-body{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:14px}
-  .proj[aria-expanded="true"] .proj-body{display:block}
-  .kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;margin-bottom:12px}
+  .proj-cat{font-size:12px;color:var(--faint);margin-top:4px;display:flex;justify-content:space-between}
+  .proj-cat .chev{transition:transform .3s var(--ease)}
+  .proj[aria-expanded="true"] .chev{transform:rotate(180deg)}
+  .proj-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
+  .proj-body > div{overflow:hidden}
+  .proj[aria-expanded="true"] .proj-body{grid-template-rows:1fr}
+  .proj-body .wrap{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:14px}
+  .kv{display:grid;grid-template-columns:110px 1fr;gap:6px 10px;margin:0 0 12px}
   .kv dt{color:var(--faint)}
   .kv dd{margin:0}
   .dchips{display:flex;flex-wrap:wrap;gap:6px}
@@ -132,36 +205,61 @@
 
   /* logos */
   .logos{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
-  .logo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:116px;text-align:center}
-  .logo .mark{height:44px;display:flex;align-items:center;justify-content:center}
-  .logo img{max-height:44px;max-width:100%;object-fit:contain}
-  .mono{width:44px;height:44px;border-radius:12px;background:var(--bg);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;color:var(--muted);font-size:15px;letter-spacing:.02em}
+  .logo{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:120px;text-align:center;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+  .logo:hover{transform:translateY(-4px) scale(1.02);box-shadow:var(--shadow-lg);border-color:#dcdcd7}
+  .logo .mark{height:48px;width:100%;display:flex;align-items:center;justify-content:center}
+  .logo img{max-height:48px;max-width:88%;object-fit:contain;animation:fadeIn .5s ease both}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .mono{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#fafaf8,#efefec);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;color:var(--muted);font-size:15px;letter-spacing:.02em}
   .logo .nm{font-size:12.5px;font-weight:500;line-height:1.3;color:var(--ink)}
 
-  /* contact */
-  .steps{counter-reset:s;display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:28px}
+  /* team */
+  .steps{counter-reset:s;display:grid;gap:12px;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:26px}
   .step{counter-increment:s}
   .step::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);font-weight:700;font-size:14px;margin-bottom:10px}
-  .person{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-  .avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:grid;place-items:center;font-size:20px}
+  .team-head{display:flex;align-items:center;gap:14px;margin:0 0 14px}
+  .team-head img{width:56px;height:56px;object-fit:contain}
+  .team-head h3{margin:0;font-size:19px}
+  .team{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .member{display:flex;flex-direction:column;gap:12px}
+  .member-top{display:flex;align-items:center;gap:12px}
+  .avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;display:grid;place-items:center;font-size:16px;flex:0 0 auto;transition:transform .4s var(--ease)}
+  .member:hover .avatar{transform:rotate(-8deg) scale(1.06)}
+  .member h4{margin:0;font-size:16px;font-weight:650}
+  .member .role{font-size:12.5px;color:var(--faint)}
+  .member .lines{font-size:14px;display:grid;gap:2px}
+  .member .lines a{color:var(--muted);text-decoration:none;word-break:break-all}
+  .member .lines a:hover{color:var(--accent)}
+  .acts{display:flex;gap:8px}
+  .act{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);border-radius:10px;padding:8px 0;font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;background:var(--surface);transition:background .2s,border-color .2s,transform .15s}
+  .act:hover{background:var(--accent-soft);border-color:#f2c9d1;color:var(--accent)}
+  .act:active{transform:scale(.96)}
+  .act svg{width:15px;height:15px}
 
   /* ---------- footer nav ---------- */
   footer{position:fixed;inset:auto 0 0 0;height:calc(var(--footer-h) + env(safe-area-inset-bottom));padding:0 16px env(safe-area-inset-bottom);
-    display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-top:1px solid var(--line);z-index:20}
-  .navbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:0 0 auto}
+    display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);z-index:20}
+  .navbtn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;flex:0 0 auto;transition:transform .2s var(--ease),background .2s,box-shadow .2s}
+  .navbtn:hover:not(:disabled){box-shadow:var(--shadow)}
+  .navbtn:active:not(:disabled){transform:scale(.92)}
+  .navbtn.next:not(:disabled){background:var(--accent);border-color:var(--accent);color:#fff}
   .navbtn:disabled{opacity:.35;cursor:default}
   .navbtn svg{width:20px;height:20px}
+  .navbtn.nudge{animation:nudge 1.8s ease-in-out 2.2s 2}
+  @keyframes nudge{0%,100%{transform:none}50%{transform:translateX(5px)}}
   .dots{flex:1;display:flex;justify-content:center;gap:6px;align-items:center;min-width:0}
-  .dot{width:8px;height:8px;border-radius:50%;background:#d6d6d1;border:0;padding:0;transition:all .25s}
-  .dot[aria-current="true"]{width:24px;border-radius:999px;background:var(--accent)}
-  .slide-name{font-size:13px;color:var(--muted);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .counter{font-size:13px;color:var(--faint);font-variant-numeric:tabular-nums}
+  .dot{width:8px;height:8px;border-radius:50%;background:#d6d6d1;border:0;padding:0;transition:all .35s var(--ease)}
+  .dot:hover{background:#bdbdb7}
+  .dot[aria-current="true"]{width:26px;border-radius:999px;background:var(--accent)}
+  .slide-name{font-size:13px;color:var(--muted);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:180px}
+  .counter{font-size:13px;color:var(--faint);font-variant-numeric:tabular-nums;width:180px;text-align:right}
 
   /* ---------- contents overlay ---------- */
-  .overlay{position:fixed;inset:0;background:rgba(20,20,25,.28);z-index:40;display:none;align-items:flex-start;justify-content:center;padding:calc(var(--header-h) + 12px) 16px 16px}
-  .overlay.open{display:flex}
-  .menu{background:var(--surface);border-radius:16px;width:min(440px,100%);max-height:100%;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.18);padding:8px}
-  .menu button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:12px;border-radius:10px;font-size:15px}
+  .overlay{position:fixed;inset:0;background:rgba(20,20,25,.25);backdrop-filter:blur(2px);z-index:40;display:flex;align-items:flex-start;justify-content:center;padding:calc(var(--header-h) + 12px) 16px 16px;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s .25s}
+  .overlay.open{opacity:1;visibility:visible;transition:opacity .25s ease}
+  .menu{background:var(--surface);border-radius:18px;width:min(440px,100%);max-height:100%;overflow:auto;box-shadow:0 24px 70px rgba(0,0,0,.2);padding:8px;transform:translateY(-10px) scale(.98);transition:transform .3s var(--ease)}
+  .overlay.open .menu{transform:none}
+  .menu button{display:flex;gap:12px;align-items:center;width:100%;text-align:left;border:0;background:none;padding:12px;border-radius:10px;font-size:15px;transition:background .15s}
   .menu button:hover,.menu button[aria-current="true"]{background:var(--bg)}
   .menu .num{width:26px;height:26px;border-radius:8px;background:var(--bg);display:grid;place-items:center;font-size:13px;color:var(--muted);font-weight:600;flex:0 0 auto}
   .menu button[aria-current="true"] .num{background:var(--accent);color:#fff}
@@ -172,29 +270,48 @@
     .g4{grid-template-columns:repeat(2,minmax(0,1fr))}
     .logos{grid-template-columns:repeat(4,minmax(0,1fr))}
     .timeline{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .timeline::before{display:none}
+    .team{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .slide-name,.counter{width:auto}
   }
   @media (max-width:720px){
     :root{--header-h:56px;--footer-h:60px}
-    .g2,.g3,.g4,.plist,.steps{grid-template-columns:1fr}
+    .g2,.g3,.g4,.plist,.steps,.team{grid-template-columns:1fr}
     .timeline{grid-template-columns:1fr}
     .logos{grid-template-columns:repeat(3,minmax(0,1fr))}
     .brand .sub,.slide-name,.hide-sm{display:none}
+    .brand .siom-h{height:28px}.brand .s2c2-h{height:36px;width:36px}
     .inner{justify-content:flex-start}
     .dots{gap:5px}
     .dot{width:7px;height:7px}
     .dot[aria-current="true"]{width:18px}
     .phase[aria-expanded="false"] ul{display:none}
+    .phase[aria-expanded="true"] .more{display:none}
+    .cover-logos .siom-c{height:50px}.cover-logos .s2c2-c{height:76px;width:76px}
+    .blob{opacity:.3}
   }
-  @media (min-width:721px){ .phase .more{display:none} .phase[aria-expanded="false"] ul{display:block} }
+  @media (min-width:721px){ .phase .more{display:none} }
   @media (max-width:380px){ .logos{grid-template-columns:repeat(2,minmax(0,1fr))} }
-  @media (prefers-reduced-motion:reduce){ .slide,.progress,.dot{transition:none!important} }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0ms!important;transition-duration:.01ms!important}
+    .slide .rv{opacity:1!important}
+  }
 </style>
 </head>
 <body>
 
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-inner">
+    <img src="assets/s2c2-logo.webp" alt="">
+    <div class="bar"></div>
+  </div>
+</div>
+
 <header>
   <button class="brand" data-go="0" aria-label="Go to first slide">
-    <span class="siom-logo" data-size="34"></span>
+    <span class="siom-logo" data-cls="siom-h"></span>
+    <span class="vr"></span>
+    <img class="s2c2-h" src="assets/s2c2-logo.png" alt="S2C2 – SIOM Students' Consulting Committee">
     <span class="sub">Six Sigma Consulting Projects · 2027</span>
   </button>
   <div class="spacer"></div>
@@ -210,21 +327,28 @@
 
   <!-- 1 · Cover -->
   <section class="slide" data-title="Welcome">
+    <div class="blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
     <div class="inner">
-      <span class="siom-logo cover" data-size="72"></span>
-      <p class="eyebrow">Symbiosis Institute of Operations Management, Nashik</p>
-      <h1>Six weeks. One real problem.<br>₹10 lakh+ in measurable savings.</h1>
-      <p class="lead">We are an MBA (Operations) team of engineers looking to take up one Black Belt-level Lean Six Sigma project at your plant: real data, real implementation, and a control plan that keeps the gains after we leave.</p>
-      <div class="pills">
-        <span class="pill"><b>20 Jan – 6 Mar 2027</b> (tentative)</span>
-        <span class="pill">DMAIC / DMADV</span>
-        <span class="pill">3–4 member team</span>
-        <span class="pill">No fee or stipend</span>
-      </div>
-      <div class="cta-row">
-        <button class="btn primary" data-go="next">See how it works
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-        <button class="btn" data-go="ideas">Browse project ideas</button>
+      <div class="cover-content">
+        <div class="cover-logos rv">
+          <span class="siom-logo" data-cls="siom-c" data-text="cover"></span>
+          <span class="vr"></span>
+          <img class="s2c2-c" src="assets/s2c2-logo.webp" alt="S2C2 – SIOM Students' Consulting Committee">
+        </div>
+        <p class="eyebrow rv">SIOM Nashik · Students' Consulting Committee</p>
+        <h1 class="rv">Six weeks. One real problem.<br><span class="hl">₹10 lakh+ in measurable savings.</span></h1>
+        <p class="lead rv">We are an MBA (Operations) team of engineers looking to take up one Black Belt-level Lean Six Sigma project with your company: real data, real implementation, and a control plan that keeps the gains after we leave.</p>
+        <div class="pills rv">
+          <span class="pill"><b>20 Jan – 6 Mar 2027</b> (tentative)</span>
+          <span class="pill">DMAIC / DMADV</span>
+          <span class="pill">3–4 member team</span>
+          <span class="pill">No fee or stipend</span>
+        </div>
+        <div class="cta-row rv">
+          <button class="btn primary" data-go="next">See how it works
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button class="btn" data-go="ideas">Browse project ideas</button>
+        </div>
       </div>
     </div>
   </section>
@@ -232,54 +356,54 @@
   <!-- 2 · Who we are -->
   <section class="slide" data-title="Who we are">
     <div class="inner">
-      <p class="eyebrow">Who we are</p>
-      <h2>Engineers by training, operations managers by choice.</h2>
-      <p class="lead">Our cohort is 100% engineering graduates from diverse branches, completing the MBA at SIOM within the next three months. This project is our final capstone, mentored by faculty.</p>
+      <p class="eyebrow rv">Who we are</p>
+      <h2 class="rv">Engineers by training, operations managers by choice.</h2>
+      <p class="lead rv">Our cohort is 100% engineering graduates from diverse branches, completing the MBA at SIOM within the next three months. This project is our final capstone, mentored by faculty.</p>
       <div class="grid g4" style="margin-bottom:14px">
-        <div class="card"><div class="stat">100%</div><div class="stat-label">Engineering graduates, from diverse branches</div></div>
-        <div class="card"><div class="stat">77</div><div class="stat-label">Six Sigma projects by SIOM teams (2022–24)</div></div>
-        <div class="card"><div class="stat">103</div><div class="stat-label">Consultancy projects with industry (2022–24)</div></div>
-        <div class="card"><div class="stat">100+</div><div class="stat-label">Recruiting partners</div></div>
+        <div class="card lift rv"><div class="stat" data-count="100" data-suffix="%">100%</div><div class="stat-label">Engineering graduates, from diverse branches</div></div>
+        <div class="card lift rv"><div class="stat" data-count="77">77</div><div class="stat-label">Six Sigma projects by SIOM teams (2022–24)</div></div>
+        <div class="card lift rv"><div class="stat" data-count="103">103</div><div class="stat-label">Consultancy projects with industry (2022–24)</div></div>
+        <div class="card lift rv"><div class="stat" data-count="100" data-suffix="+">100+</div><div class="stat-label">Recruiting partners</div></div>
       </div>
       <div class="grid g3">
-        <div class="card">
+        <div class="card lift rv">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div>
           <h3>Specialised institute</h3>
           <p>SIOM is a Symbiosis institute focused only on operations, with MBA programmes in Operations & Supply Chain Management, Agri Operations, and Operations Management (dual degree with Durham University Business School).</p>
         </div>
-        <div class="card">
+        <div class="card lift rv">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 15l3-4 3 2 5-6"/></svg></div>
           <h3>Trained in the toolkit</h3>
-          <p>Lean, Six Sigma, statistics, SPC, supply chain and plant operations are part of our curriculum, so we can start on the shop floor from day one.</p>
+          <p>Lean, Six Sigma, statistics, SPC, supply chain and plant operations are part of our curriculum, so we can get started from day one.</p>
         </div>
-        <div class="card">
+        <div class="card lift rv">
           <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div>
           <h3>Faculty-mentored</h3>
           <p>Every project is guided by Dr. Deepak Nirmal, SIOM, with tollgate reviews so your sponsor sees progress every week.</p>
         </div>
       </div>
-      <p class="small muted" style="margin-top:14px">Institute figures from <a href="https://www.siom.in" target="_blank" rel="noopener">siom.in</a>.</p>
+      <p class="small muted rv" style="margin-top:14px">Institute figures from <a href="https://www.siom.in" target="_blank" rel="noopener">siom.in</a>.</p>
     </div>
   </section>
 
   <!-- 3 · Why host us -->
   <section class="slide" data-title="Why host us">
     <div class="inner">
-      <p class="eyebrow">The win-win</p>
-      <h2>Extra hands for the idea that never got time.</h2>
-      <p class="lead">Every plant has a boardroom idea or a pending improvement waiting for people to work on it. We bring a dedicated team, at no cost, and finish before your financial year closes.</p>
+      <p class="eyebrow rv">The win-win</p>
+      <h2 class="rv">Extra hands for the idea that never got time.</h2>
+      <p class="lead rv">Every company has a boardroom idea or a pending improvement waiting for people to work on it. We bring a dedicated team, at no cost, and finish before your financial year closes.</p>
       <div class="grid g3">
-        <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
-          <h3>Dedicated manpower</h3><p>3–4 people working full-time for six weeks on one problem you choose, without adding to your headcount.</p></div>
-        <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <div class="card lift rv"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div>
+          <h3>Dedicated manpower</h3><p>A team of 3–4 working on one problem you choose for six weeks, without adding to your headcount.</p></div>
+        <div class="card lift rv"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
           <h3>Results before FY-end</h3><p>We finish by 6 March 2027, so the savings can be shown in this financial year, ahead of 31 March.</p></div>
-        <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="card lift rv"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
           <h3>Zero cost</h3><p>No stipend or monetary aid. We only ask for a certificate of completion when the project closes.</p></div>
-        <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 4 4 5-6"/></svg></div>
+        <div class="card lift rv"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18M7 14l4-4 4 4 5-6"/></svg></div>
           <h3>₹10 lakh+ target, measured</h3><p>Savings are calculated with your finance or plant team against a baseline, not estimated on paper.</p></div>
-        <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="card lift rv"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <h3>Gains that last</h3><p>Control charts, updated SOPs and a handover plan stay with your process owner after we leave.</p></div>
-        <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="card lift rv"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
           <h3>A preview of future talent</h3><p>We graduate in about three months. You see engineers-turned-managers at work before campus hiring.</p></div>
       </div>
     </div>
@@ -288,11 +412,11 @@
   <!-- 4 · Requirements -->
   <section class="slide" data-title="Project requirements">
     <div class="inner">
-      <p class="eyebrow">Project requirements</p>
-      <h2>What makes a good fit.</h2>
-      <p class="lead">These are the criteria our institute sets for the final project. If a problem on your list matches most of them, we would love to talk.</p>
+      <p class="eyebrow rv">Project requirements</p>
+      <h2 class="rv">What makes a good fit.</h2>
+      <p class="lead rv">These are the criteria our institute sets for the final project. If a problem on your list matches most of them, we would love to talk.</p>
       <div class="grid g3">
-        <div class="card crit-group">
+        <div class="card crit-group rv">
           <h3>Timeline & team</h3>
           <div class="crit"><span>Project duration</span><span>4–6 weeks</span></div>
           <div class="crit"><span>Start date</span><span>20 Jan 2027*</span></div>
@@ -301,7 +425,7 @@
           <div class="crit"><span>Methodology</span><span>DMAIC / DMADV</span></div>
           <div class="crit"><span>Project level</span><span>Black Belt equivalent</span></div>
         </div>
-        <div class="card crit-group">
+        <div class="card crit-group rv">
           <h3>Impact & scope</h3>
           <div class="crit"><span>Financial impact</span><span>~₹10 lakh+</span></div>
           <div class="crit"><span>Cost savings</span><span>Quantifiable</span></div>
@@ -310,74 +434,87 @@
           <div class="crit"><span>Implementation</span><span>Highly preferred</span></div>
           <div class="crit"><span>Sustainability</span><span>Control mechanism required</span></div>
         </div>
-        <div class="card crit-group">
-          <h3>Access & company fit</h3>
-          <div class="crit"><span>Data</span><span>Available / collectible</span></div>
-          <div class="crit"><span>Process access</span><span>Required</span></div>
+        <div class="card crit-group rv">
+          <h3>Company fit</h3>
           <div class="crit"><span>Sector</span><span>Manufacturing / industrial preferred</span></div>
           <div class="crit"><span>Company size</span><span>SME to large enterprise / conglomerate</span></div>
           <div class="crit"><span>Micro enterprises</span><span>Generally not preferred</span></div>
           <div class="crit"><span>Fee / stipend</span><span>None</span></div>
+          <div class="crit"><span>In return</span><span>Certificate of completion</span></div>
         </div>
       </div>
-      <div class="note"><b>Our only requirement:</b> no monetary aid, just a certificate of completion at the end of the project. <span class="muted">*Dates are tentative and can move by a few days.</span></div>
+      <div class="note soft rv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <div><b>Data and site access, at your comfort.</b> If you are happy to share process data and allow occasional site visits, it helps us deliver more. If not, that is no problem: we will work with whatever you are comfortable sharing.</div>
+      </div>
+      <div class="note ok rv">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+        <div><b>Our only requirement:</b> no monetary aid, just a certificate of completion at the end of the project. <span>*Dates are tentative and can move by a few days.</span></div>
+      </div>
     </div>
   </section>
 
   <!-- 5 · How it works -->
   <section class="slide" data-title="How the 6 weeks run">
     <div class="inner">
-      <p class="eyebrow">How it works</p>
-      <h2>Six weeks, five clear steps.</h2>
-      <p class="lead">We follow DMAIC (or DMADV for a new or redesigned process). Your sponsor reviews each step before we move to the next. <span class="hide-sm">Tap a step for details.</span></p>
+      <p class="eyebrow rv">How it works</p>
+      <h2 class="rv">Six weeks, five clear steps.</h2>
+      <p class="lead rv">We follow DMAIC (or DMADV for a new or redesigned process). Your sponsor reviews each step before we move to the next.<span class="hide-sm"></span></p>
       <div class="timeline" id="timeline">
-        <button class="phase" aria-expanded="false"><div class="letter">D</div><div class="when">Week 1 · 20–23 Jan</div><h3>Define</h3>
+        <button class="phase rv pop" aria-expanded="false"><div class="letter">D</div><div class="when">Week 1 · 20–23 Jan</div><h3>Define</h3>
           <div class="more">Tap for details</div>
           <ul><li>Agree on the problem and target</li><li>Project charter and SIPOC</li><li>Savings baseline signed off</li></ul></button>
-        <button class="phase" aria-expanded="false"><div class="letter">M</div><div class="when">Week 2 · 25–30 Jan</div><h3>Measure</h3>
+        <button class="phase rv pop" aria-expanded="false"><div class="letter">M</div><div class="when">Week 2 · 25–30 Jan</div><h3>Measure</h3>
           <div class="more">Tap for details</div>
           <ul><li>Data collection plan</li><li>Check measurements can be trusted (Gauge R&amp;R)</li><li>Baseline capability</li></ul></button>
-        <button class="phase" aria-expanded="false"><div class="letter">A</div><div class="when">Week 3 · 1–6 Feb</div><h3>Analyse</h3>
+        <button class="phase rv pop" aria-expanded="false"><div class="letter">A</div><div class="when">Week 3 · 1–6 Feb</div><h3>Analyse</h3>
           <div class="more">Tap for details</div>
           <ul><li>Process mapping and fishbone</li><li>FMEA</li><li>Statistical tests to prove root causes</li></ul></button>
-        <button class="phase" aria-expanded="false"><div class="letter">I</div><div class="when">Weeks 4–5 · 8–20 Feb</div><h3>Improve</h3>
+        <button class="phase rv pop" aria-expanded="false"><div class="letter">I</div><div class="when">Weeks 4–5 · 8–20 Feb</div><h3>Improve</h3>
           <div class="more">Tap for details</div>
           <ul><li>Select and pilot solutions</li><li>Experiments (DOE) where useful</li><li>Before/after proof of savings</li></ul></button>
-        <button class="phase" aria-expanded="false"><div class="letter">C</div><div class="when">Weeks 6–7 · 22 Feb–6 Mar</div><h3>Control</h3>
+        <button class="phase rv pop" aria-expanded="false"><div class="letter">C</div><div class="when">Weeks 6–7 · 22 Feb–6 Mar</div><h3>Control</h3>
           <div class="more">Tap for details</div>
           <ul><li>Control plan and SPC charts</li><li>Updated SOPs, poka-yoke</li><li>Handover to process owner</li></ul></button>
       </div>
     </div>
   </section>
 
-  <!-- 6 · Give & get -->
-  <section class="slide" data-title="What you get, what we need">
+  <!-- 6 · Deliverables & certificate -->
+  <section class="slide" data-title="Deliverables & certificate">
     <div class="inner">
-      <p class="eyebrow">The engagement</p>
-      <h2>What you get, and what we need.</h2>
-      <p class="lead">A light ask from your side, a full project from ours.</p>
-      <div class="grid g2">
-        <div class="card">
-          <h3>You get</h3>
-          <ul class="check">
-            <li>A full-time team on one problem you choose</li>
-            <li>₹10 lakh+ annual savings target, validated with finance</li>
-            <li>Solutions implemented with your staff, not just recommended</li>
-            <li>Weekly tollgate reviews with your sponsor</li>
-            <li>Final report, control plan and SOPs your team owns</li>
-            <li>Signed NDA; your data stays confidential</li>
-          </ul>
+      <p class="eyebrow rv">Deliverables</p>
+      <h2 class="rv">What you receive, and our one ask.</h2>
+      <p class="lead rv">Six concrete deliverables for your company. In return, we only ask for a certificate of completion.</p>
+      <div class="grid g2" style="align-items:start">
+        <div class="card rv">
+          <h3 style="margin-bottom:12px">Deliverables you receive</h3>
+          <ol class="dlist">
+            <li><div><b>Project charter</b><span>Problem, scope, target and savings baseline, signed off by your sponsor.</span></div></li>
+            <li><div><b>Root-cause analysis report</b><span>Data analysis with statistical evidence of what is really causing the problem.</span></div></li>
+            <li><div><b>Implemented solution</b><span>Piloted with your team and verified on the process, not just recommended.</span></div></li>
+            <li><div><b>Savings validation sheet</b><span>Annualised ₹ savings, calculated and agreed with your finance or plant team.</span></div></li>
+            <li><div><b>Control plan & SOPs</b><span>SPC charts, updated SOPs or checklists, and a response plan for your process owner.</span></div></li>
+            <li><div><b>Final report & management presentation</b><span>A complete write-up and a closing presentation to your leadership, with handover.</span></div></li>
+          </ol>
         </div>
-        <div class="card">
-          <h3>We need</h3>
-          <ul class="check">
-            <li>A project sponsor and a process owner</li>
-            <li>Access to the shop floor or process area</li>
-            <li>Relevant historical data, or permission to collect it</li>
-            <li>Some time from about three departments</li>
-            <li>A certificate of completion when we close</li>
-            <li>No fee, stipend or monetary aid</li>
-          </ul>
+        <div class="grid" style="gap:14px">
+          <div class="cert rv">
+            <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="6"/><path d="M8.5 14 7 22l5-3 5 3-1.5-8"/></svg></div>
+            <h3>Certificate of completion</h3>
+            <p>When the project closes, we request a certificate of completion from your company, on your letterhead, confirming the project title, duration and team members.</p>
+            <p>This is required by our institute for the final project, and it is the only thing we ask for.</p>
+            <span class="tag">No stipend · No fee · No monetary aid</span>
+          </div>
+          <div class="card rv">
+            <h3 style="margin-bottom:6px">What helps us deliver</h3>
+            <ul class="check">
+              <li>A point of contact or project sponsor</li>
+              <li>Site visits when convenient for you</li>
+              <li>Data and process access, as far as you are comfortable sharing</li>
+              <li>A signed NDA from our side; your data stays confidential</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -386,10 +523,10 @@
   <!-- 7 · Project ideas -->
   <section class="slide" data-title="Project ideas" id="ideas">
     <div class="inner top">
-      <p class="eyebrow">Project ideas</p>
-      <h2>Pick a problem, or bring your own.</h2>
-      <p class="lead" style="margin-bottom:16px">Typical projects across operations, manufacturing and industrial supply chain. Tap any idea to see the metric, the departments involved, and to tell us you are interested.</p>
-      <div class="toolbar no-swipe">
+      <p class="eyebrow rv">Project ideas</p>
+      <h2 class="rv">Pick a problem, or bring your own.</h2>
+      <p class="lead rv" style="margin-bottom:16px">Typical projects across operations, manufacturing and industrial supply chain. Tap any idea to see the metric, the departments involved, and to tell us you are interested.</p>
+      <div class="toolbar no-swipe rv">
         <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <input id="q" type="search" placeholder="Search ideas, e.g. rejection, OEE, inventory" aria-label="Search project ideas"></label>
         <div class="chips" id="chips" role="toolbar" aria-label="Filter by area"></div>
@@ -402,42 +539,29 @@
   <!-- 8 · Past hosts -->
   <section class="slide" data-title="Past host companies">
     <div class="inner top">
-      <p class="eyebrow">Previous project hosts</p>
-      <h2>Companies that hosted SIOM projects.</h2>
-      <p class="lead" style="margin-bottom:20px">From large enterprises and multinationals to growing SMEs across tyres, auto components, engineering, electricals, plastics, pharma and supply chain.</p>
+      <p class="eyebrow rv">Previous project hosts</p>
+      <h2 class="rv">Companies that hosted SIOM projects.</h2>
+      <p class="lead rv" style="margin-bottom:20px">From large enterprises and multinationals to growing SMEs across tyres, auto components, engineering, electricals, plastics, pharma and supply chain.</p>
       <div class="logos" id="logos"></div>
     </div>
   </section>
 
-  <!-- 9 · Contact -->
-  <section class="slide" data-title="Next steps & contact">
-    <div class="inner">
-      <p class="eyebrow">Next steps</p>
-      <h2>Let's find the right problem together.</h2>
-      <p class="lead">Three simple steps from first call to start.</p>
+  <!-- 9 · Team & contact -->
+  <section class="slide" data-title="Team & contact">
+    <div class="inner top">
+      <p class="eyebrow rv">Next steps</p>
+      <h2 class="rv">Let's find the right problem together.</h2>
+      <p class="lead rv">Three simple steps from first call to start. Reach out to any of us.</p>
       <div class="steps">
-        <div class="card step"><h3>15-minute call</h3><p>We understand your plant and the problems on your list.</p></div>
-        <div class="card step"><h3>Agree the problem</h3><p>We pick one, share a draft charter and sign an NDA.</p></div>
-        <div class="card step"><h3>Start on 20 Jan</h3><p>Team on-site, with weekly reviews until 6 March 2027.</p></div>
+        <div class="card step lift rv"><h3>15-minute call</h3><p>We understand your company and the problems on your list.</p></div>
+        <div class="card step lift rv"><h3>Agree the problem</h3><p>We pick one, share a draft charter and sign an NDA.</p></div>
+        <div class="card step lift rv"><h3>Start on 20 Jan</h3><p>Weekly reviews with your sponsor until 6 March 2027.</p></div>
       </div>
-      <div class="card">
-        <div class="person">
-          <div class="avatar">SB</div>
-          <div style="flex:1;min-width:200px">
-            <h3 style="margin:0">Samriddha Basu</h3>
-            <div class="muted small">Member, Consulting Committee · Symbiosis Institute of Operations Management (SIOM), Nashik</div>
-            <div class="muted small">Faculty mentor: Dr. Deepak Nirmal</div>
-          </div>
-        </div>
-        <div class="cta-row" style="margin-top:18px">
-          <a class="btn primary" href="mailto:samriddha.basu@siom.in?subject=Six%20Sigma%20project%20with%20SIOM%20(Jan%E2%80%93Mar%202027)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>samriddha.basu@siom.in</a>
-          <a class="btn" href="tel:+919064583098">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>+91 90645 83098</a>
-          <a class="btn" href="https://wa.me/919064583098?text=Hello%20Samriddha%2C%20I%27d%20like%20to%20discuss%20a%20Six%20Sigma%20project%20with%20SIOM." target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>WhatsApp</a>
-        </div>
+      <div class="team-head rv">
+        <img src="assets/s2c2-logo.webp" alt="S2C2 logo">
+        <div><h3>The team · S2C2</h3><div class="muted small">SIOM Students' Consulting Committee · Faculty mentor: Dr. Deepak Nirmal</div></div>
       </div>
+      <div class="team" id="team"></div>
     </div>
   </section>
 
@@ -448,7 +572,7 @@
   <span class="slide-name" id="slideName"></span>
   <div class="dots" id="dots" role="tablist" aria-label="Slides"></div>
   <span class="counter" id="counter"></span>
-  <button class="navbtn" id="next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  <button class="navbtn next nudge" id="next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
 </footer>
 
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Contents">
@@ -457,8 +581,17 @@
 
 <script>
 /* ===================== DATA ===================== */
-const CONTACT_EMAIL = "samriddha.basu@siom.in";
-const SIOM_LOGOS = ["assets/siom-logo.png","assets/siom-logo.webp","https://www.siom.in/assets/images/siom-logo.webp"];
+const SIOM_LOGOS = ["assets/siom-logo.png","assets/siom-logo.webp","assets/siom-logo.svg","https://www.siom.in/assets/images/siom-logo.webp"];
+
+const TEAM = [
+  {n:"Samriddha Basu", e:"samriddha.basu@siom.in", p:"+91 90645 83098"},
+  {n:"Nikhil Malali",  e:"nikhil.malali@siom.in",  p:"+91 99724 02702"},
+  {n:"Noel Varghese",  e:"noel.varghese@siom.in",  p:"+91 98691 19727"},
+  {n:"Rahul Boddu",    e:"rahul.boddu@siom.in",    p:"+91 84529 61757"},
+  {n:"Yash Gupta",     e:"yash.gupta@siom.in",     p:"+91 94608 41455"},
+  {n:"Devesh Tiwari",  e:"devesh.tiwari@siom.in",  p:"+91 88601 53131"}
+];
+const CONTACT_EMAIL = TEAM[0].e;
 
 // [title, key metric, departments, method]
 const PROJECTS = {
@@ -564,16 +697,32 @@ const PROJECTS = {
   ]
 };
 
-// Past hosts. "d" = company web domain used to fetch a logo when no local file exists.
-// To use your own logo files, drop them in /logos named <slug>.png (see logos/README.md).
+/* Past hosts.
+   logo: logo image URL taken from the company's own website (loads when online).
+   d:    company domain, used for a website-icon fallback.
+   A file in /logos named <slug>.png/.svg/.jpg/.webp always wins (see logos/README.md). */
 const COMPANIES = [
-  {n:"CEAT",d:"ceat.com"},{n:"JK Tyre",d:"jktyre.com"},{n:"Michelin",d:"michelin.com"},
-  {n:"UNO Minda",d:"unominda.com"},{n:"Motherson",d:"motherson.com"},{n:"JBM Auto",d:"jbmgroup.com"},
-  {n:"Parker",d:"parker.com"},{n:"KSB Pumps",d:"ksb.com"},{n:"Epiroc",d:"epiroc.com"},
-  {n:"Manitowoc Cranes (Potain India)",d:"manitowoc.com"},{n:"Legrand",d:"legrand.co.in"},{n:"Honda Cars India",d:"hondacarindia.com"},
-  {n:"Glenmark",d:"glenmarkpharma.com"},{n:"GSK",d:"gsk.com"},{n:"Emami",d:"emamiltd.in"},
-  {n:"Samsonite",d:"samsonite.com"},{n:"Racold",d:"racold.com"},{n:"TVS Supply Chain Solutions",d:"tvsscs.com"},
-  {n:"Rishabh Instruments",d:"rishabh.co.in"},{n:"Mantra Softech",d:"mantratec.com"},{n:"Caprihans",d:"caprihansindia.com"},
+  {n:"CEAT", logo:"https://www.ceat.com/content/dam/ceat/website/logo.png", d:"ceat.com"},
+  {n:"JK Tyre", logo:"https://dwzytf8fljslz.cloudfront.net/Jk_Logo_Square_036aed0631.svg?format=auto&width=256&quality=75", d:"jktyre.com"},
+  {n:"Michelin", d:"michelin.com"},
+  {n:"UNO Minda", logo:"https://www.unominda.com/images/logo.png", d:"unominda.com"},
+  {n:"Motherson", d:"motherson.com"},
+  {n:"JBM Auto", logo:"https://www.jbmgroup.com/wp-content/uploads/2021/09/thumbnail_JBM_Logo-01-01-01_gs.png", d:"jbmgroup.com"},
+  {n:"Parker", d:"parker.com"},
+  {n:"KSB Pumps", logo:"https://live-resources-e2e-sales.ksb.com/resource/crblob/2528712/fc425830e1fe4e346baba41dc77239d1/header-logo-solid-data.svg", d:"ksb.com"},
+  {n:"Epiroc", d:"epiroc.com"},
+  {n:"Manitowoc Cranes (Potain India)", logo:"https://www.manitowoc.com/sites/default/files/media/menu/icons/2020-07/logo-manitowoc-c.svg", d:"manitowoc.com"},
+  {n:"Legrand", logo:"https://www.legrand.co.in/public/images/navigation/logo.png", d:"legrand.co.in"},
+  {n:"Honda Cars India", logo:"https://www.hondacarindia.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Flogo.35e4c17e.png&w=384&q=75", d:"hondacarindia.com"},
+  {n:"Glenmark", logo:"https://glenmarkpharma.com/wp-content/uploads/2026/04/glenmark_logo_2026_big_c.png", d:"glenmarkpharma.com"},
+  {n:"GSK", d:"gsk.com"},
+  {n:"Emami", d:"emamiltd.in"},
+  {n:"Samsonite", logo:"https://www.samsonite.in/on/demandware.static/Sites-MonoSamsoniteIN-Site/-/default/dw0a20b285/images/logo.svg", d:"samsonite.in"},
+  {n:"Racold", d:"racold.com"},
+  {n:"TVS Supply Chain Solutions", d:"tvsscs.com"},
+  {n:"Rishabh Instruments", logo:"https://rishabh.co.in/uploads/company/LogoWithBox_1.svg", d:"rishabh.co.in"},
+  {n:"Mantra Softech", logo:"https://www.mantratec.com/Assets/Images/logo.svg", d:"mantratec.com"},
+  {n:"Caprihans", d:"caprihansindia.com"},
   {n:"Koso India"},{n:"Lohia Group"},{n:"AMT Group"},{n:"Trade Winds Consulting"},
   {n:"Yash High Voltage Capacitor Components"},{n:"Genext Precision Autotech"},{n:"Prathamesh"},
   {n:"NSK Industries"},{n:"Supreme Technocrats"},{n:"Samtech"},{n:"PMEA"},{n:"BajajSons"},
@@ -589,28 +738,27 @@ const $$ = (s, r=document) => [...r.querySelectorAll(s)];
 const slug = s => s.toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const initials = n => n.replace(/\(.*?\)/g,"").replace(/[^A-Za-z0-9 ]/g," ").trim().split(/\s+/).filter(w=>!/^(pvt|ltd|limited|private|india|the|and|of)$/i.test(w)).slice(0,2).map(w=>w[0]).join("").toUpperCase() || n[0];
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Try image sources in order; minW rejects tiny default favicons.
-function tryImages(srcs, minW, onOk, onFail){
+// Try image sources in order. Each source: {src, min} — min rejects tiny default favicons.
+function tryImages(srcs, onOk, onFail){
   let i = 0;
   const next = () => {
-    if (i >= srcs.length) return onFail();
-    const src = srcs[i++]; const img = new Image();
-    img.onload = () => (img.naturalWidth >= (src.startsWith("http") ? minW : 1)) ? onOk(img) : next();
-    img.onerror = next; img.src = src;
+    if (i >= srcs.length) return onFail && onFail();
+    const s = srcs[i++]; const img = new Image();
+    img.onload = () => (img.naturalWidth === 0 && !s.min) || img.naturalWidth >= (s.min||0) ? onOk(img) : next();
+    img.onerror = next; img.src = s.src;
   };
   next();
 }
 
 /* ===================== SIOM LOGO ===================== */
 $$(".siom-logo").forEach(el => {
-  const h = +el.dataset.size;
-  tryImages(SIOM_LOGOS, 1, img => {
-    img.alt = "Symbiosis Institute of Operations Management, Nashik"; img.style.height = h + "px"; img.style.width = "auto";
-    if (el.classList.contains("cover")) img.className = "cover-logo";
+  tryImages(SIOM_LOGOS.map(src => ({src})), img => {
+    img.alt = "Symbiosis Institute of Operations Management, Nashik"; img.className = el.dataset.cls + " blend";
     el.replaceWith(img);
   }, () => {
-    el.innerHTML = el.classList.contains("cover") ? '<div class="cover-logo-text">SIOM</div>' : '<span class="wordmark">SIOM</span>';
+    el.innerHTML = el.dataset.text === "cover" ? '<div class="cover-logo-text">SIOM</div>' : '<span class="wordmark">SIOM</span>';
   });
 });
 
@@ -626,43 +774,65 @@ function renderChips(){
     return `<button class="chip" aria-pressed="${c===activeCat}" data-cat="${esc(c)}">${esc(c)}<span class="n">${n}</span></button>`;
   }).join("");
 }
-function renderProjects(){
+function renderProjects(animate=true){
   const q = qEl.value.trim().toLowerCase();
   const items = ALL.filter(p => (activeCat==="All" || p.cat===activeCat) &&
     (!q || (p.t+" "+p.m+" "+p.d+" "+p.cat+" "+p.meth).toLowerCase().includes(q)));
   countEl.textContent = `${items.length} idea${items.length===1?"":"s"}`;
   if (!items.length){ plistEl.innerHTML = `<div class="empty">No ideas match “${esc(q)}”. Have a different problem in mind? <a href="mailto:${CONTACT_EMAIL}">Tell us about it</a>.</div>`; return; }
-  plistEl.innerHTML = items.map(p => {
-    const mail = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("Interested in SIOM project: "+p.t)}&body=${encodeURIComponent("Hello Samriddha,\n\nWe are interested in exploring this project at our plant:\n\""+p.t+"\"\n\nCompany:\nLocation:\nContact person:\n\nRegards,")}`;
-    return `<button class="proj" aria-expanded="false">
+  plistEl.innerHTML = items.map((p,i) => {
+    const mail = `mailto:${CONTACT_EMAIL}?cc=${TEAM.slice(1).map(m=>m.e).join(",")}&subject=${encodeURIComponent("Interested in SIOM project: "+p.t)}&body=${encodeURIComponent("Hello S2C2 team,\n\nWe are interested in exploring this project with our company:\n\""+p.t+"\"\n\nCompany:\nLocation:\nContact person:\n\nRegards,")}`;
+    return `<button class="proj ${animate?"in":""}" style="--i:${Math.min(i,16)}" aria-expanded="false">
       <div class="proj-top"><div class="proj-title">${esc(p.t)}</div><span class="badge ${p.meth==="DMADV"?"dmadv":""}">${p.meth}</span></div>
-      <div class="proj-cat">${esc(p.cat)}</div>
-      <div class="proj-body">
+      <div class="proj-cat"><span>${esc(p.cat)}</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></div>
+      <div class="proj-body"><div><div class="wrap">
         <dl class="kv"><dt>Key metric</dt><dd>${esc(p.m)}</dd>
         <dt>Departments</dt><dd><div class="dchips">${p.d.split(",").map(x=>`<span class="dchip">${esc(x.trim())}</span>`).join("")}</div></dd>
         <dt>Method</dt><dd>${p.meth==="DMADV"?"DMADV: design or redesign a process":"DMAIC: improve an existing process"}</dd></dl>
         <a class="interest" href="${mail}">I'm interested in this project →</a>
-      </div></button>`;
+      </div></div></div></button>`;
   }).join("");
 }
 chipsEl.addEventListener("click", e => { const b = e.target.closest(".chip"); if(!b) return; activeCat = b.dataset.cat; renderChips(); renderProjects(); });
-qEl.addEventListener("input", renderProjects);
+qEl.addEventListener("input", () => renderProjects(false));
 plistEl.addEventListener("click", e => {
   if (e.target.closest("a")) return;
   const b = e.target.closest(".proj"); if(!b) return;
   b.setAttribute("aria-expanded", b.getAttribute("aria-expanded")==="true" ? "false" : "true");
 });
-renderChips(); renderProjects();
+renderChips(); renderProjects(false);
 
 /* ===================== LOGOS ===================== */
 const logosEl = $("#logos");
-logosEl.innerHTML = COMPANIES.map((c,i) => `<div class="logo"><div class="mark" data-i="${i}"><div class="mono">${esc(initials(c.n))}</div></div><div class="nm">${esc(c.n)}</div></div>`).join("");
+logosEl.innerHTML = COMPANIES.map((c,i) => `<div class="logo rv pop"><div class="mark" data-i="${i}"><div class="mono">${esc(initials(c.n))}</div></div><div class="nm">${esc(c.n)}</div></div>`).join("");
 COMPANIES.forEach((c,i) => {
   const s = slug(c.n);
-  const srcs = [`logos/${s}.png`,`logos/${s}.svg`,`logos/${s}.jpg`,`logos/${s}.webp`];
-  if (c.d) srcs.push(`https://www.google.com/s2/favicons?domain=${c.d}&sz=128`);
-  tryImages(srcs, 48, img => { img.alt = c.n + " logo"; img.loading = "lazy"; const m = $(`.mark[data-i="${i}"]`); m.innerHTML = ""; m.appendChild(img); }, () => {});
+  const srcs = ["png","svg","jpg","webp"].map(x => ({src:`logos/${s}.${x}`}));
+  if (c.logo) srcs.push({src:c.logo});
+  if (c.d) srcs.push({src:`https://www.google.com/s2/favicons?domain=${c.d}&sz=128`, min:48});
+  tryImages(srcs, img => { img.alt = c.n + " logo"; img.decoding = "async"; const m = $(`.mark[data-i="${i}"]`); m.innerHTML = ""; m.appendChild(img); });
 });
+
+/* ===================== TEAM ===================== */
+const ic = {
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+  call:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>',
+  wa:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>'
+};
+$("#team").innerHTML = TEAM.map(m => {
+  const digits = m.p.replace(/\D/g,"");
+  const ini = m.n.split(" ").map(w=>w[0]).join("").slice(0,2);
+  const subj = encodeURIComponent("Six Sigma project with SIOM (Jan–Mar 2027)");
+  const wa = `https://wa.me/${digits}?text=${encodeURIComponent("Hello "+m.n.split(" ")[0]+", I'd like to discuss a Six Sigma project with SIOM.")}`;
+  return `<div class="card member lift rv">
+    <div class="member-top"><div class="avatar">${ini}</div><div><h4>${esc(m.n)}</h4><div class="role">S2C2 · SIOM Nashik</div></div></div>
+    <div class="lines"><a href="mailto:${m.e}?subject=${subj}">${m.e}</a><a href="tel:+${digits}">${m.p}</a></div>
+    <div class="acts">
+      <a class="act" href="mailto:${m.e}?subject=${subj}" aria-label="Email ${esc(m.n)}">${ic.mail}Email</a>
+      <a class="act" href="tel:+${digits}" aria-label="Call ${esc(m.n)}">${ic.call}Call</a>
+      <a class="act" href="${wa}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(m.n)}">${ic.wa}Chat</a>
+    </div></div>`;
+}).join("");
 
 /* ===================== TIMELINE ===================== */
 $("#timeline").addEventListener("click", e => {
@@ -675,20 +845,42 @@ const slides = $$(".slide");
 const dotsEl = $("#dots"), menuEl = $("#menu");
 let cur = 0;
 
+// Stagger index for reveal animations
+slides.forEach(s => $$(".rv", s).forEach((el,i) => el.style.setProperty("--i", Math.min(i, 22))));
+
 dotsEl.innerHTML = slides.map((s,i) => `<button class="dot" role="tab" aria-label="${esc(s.dataset.title)}" data-go="${i}"></button>`).join("");
 menuEl.innerHTML = `<div class="hint">Jump to a slide · use ← → keys or swipe</div>` +
   slides.map((s,i) => `<button data-go="${i}"><span class="num">${i+1}</span>${esc(s.dataset.title)}</button>`).join("");
 
+function countUp(slide){
+  $$("[data-count]", slide).forEach(el => {
+    const end = +el.dataset.count, suf = el.dataset.suffix || "";
+    if (reduced) { el.textContent = end + suf; return; }
+    const t0 = performance.now(), dur = 1100;
+    const step = t => { const k = Math.min(1,(t-t0)/dur), v = Math.round(end*(1-Math.pow(1-k,3))); el.textContent = v + suf; if (k<1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+
 function go(n, push=true){
   n = Math.max(0, Math.min(slides.length-1, n));
-  slides.forEach((s,i) => { s.classList.toggle("active", i===n); s.classList.toggle("before", i<n); s.setAttribute("aria-hidden", i!==n); });
+  slides.forEach((s,i) => {
+    s.classList.toggle("active", i===n); s.classList.toggle("before", i<n);
+    s.setAttribute("aria-hidden", i!==n);
+    if (i!==n) s.classList.remove("play");
+  });
+  const s = slides[n];
+  s.classList.remove("play"); void s.offsetWidth; s.classList.add("play");
+  s.scrollTop = 0;
+  countUp(s);
   cur = n;
   $$(".dot").forEach((d,i) => d.setAttribute("aria-current", i===n));
   $$("#menu button").forEach((d,i) => d.setAttribute("aria-current", i===n));
   $("#prev").disabled = n===0; $("#next").disabled = n===slides.length-1;
   $("#counter").textContent = `${n+1} / ${slides.length}`;
-  $("#slideName").textContent = slides[n].dataset.title;
+  $("#slideName").textContent = s.dataset.title;
   $("#progress").style.width = ((n+1)/slides.length*100) + "%";
+  if (n>0) $("#next").classList.remove("nudge");
   if (push) history.replaceState(null, "", "#" + (n+1));
 }
 function resolve(t){
@@ -704,7 +896,7 @@ $("#prev").onclick = () => go(cur-1);
 $("#next").onclick = () => go(cur+1);
 
 const overlay = $("#overlay");
-const openMenu = () => { overlay.classList.add("open"); ($("#menu button[aria-current='true']")||$("#menu button")).focus(); };
+const openMenu = () => { overlay.classList.add("open"); setTimeout(() => ($("#menu button[aria-current='true']")||$("#menu button")).focus(), 50); };
 const closeMenu = () => overlay.classList.remove("open");
 $("#openMenu").onclick = openMenu;
 overlay.addEventListener("click", e => { if (e.target === overlay) closeMenu(); });
@@ -718,7 +910,7 @@ document.addEventListener("keydown", e => {
   if (e.key === "End") go(slides.length-1);
 });
 
-// Swipe (ignores horizontal-scrolling chip bar)
+// Swipe (ignores the horizontally scrolling chip bar)
 let sx=0, sy=0, st=0, skip=false;
 const deck = $("#deck");
 deck.addEventListener("touchstart", e => { const t=e.touches[0]; sx=t.clientX; sy=t.clientY; st=Date.now(); skip=!!e.target.closest(".no-swipe"); }, {passive:true});
@@ -729,8 +921,14 @@ deck.addEventListener("touchend", e => {
 }, {passive:true});
 
 const start = parseInt(location.hash.slice(1), 10);
-go(Number.isFinite(start) ? start-1 : 0, false);
+const startIdx = Number.isFinite(start) ? start-1 : 0;
 window.addEventListener("hashchange", () => { const n = parseInt(location.hash.slice(1),10); if (Number.isFinite(n) && n-1 !== cur) go(n-1, false); });
+
+// Intro: show the S2C2 logo briefly, then reveal the deck
+const intro = $("#intro");
+const reveal = () => { intro.classList.add("done"); go(startIdx, false); };
+if (reduced || Number.isFinite(start)) { intro.classList.add("done"); go(startIdx, false); }
+else setTimeout(reveal, 1300);
 </script>
 </body>
 </html>

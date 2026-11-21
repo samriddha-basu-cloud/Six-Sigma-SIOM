@@ -3,7 +3,8 @@
 Put logo files in this folder to show them on the "Past host companies" slide.
 
 - Name each file exactly as listed below. `.png`, `.svg`, `.jpg` and `.webp` all work (for example `ceat.svg`).
-- A file here is used first. If there is no file, the page tries the company's website icon (when online), and otherwise shows the company's initials.
+- A file here is used first. If there is no file, the page tries the logo from the company's website, then its web icon (both need internet), and otherwise shows the company's initials.
+- `gsk.svg` is already included.
 - Transparent PNG or SVG files about 200 px wide look best.
 
 To add the SIOM logo, save it as `assets/siom-logo.png` or `assets/siom-logo.webp`. Without a file, the page loads it from siom.in when online.
