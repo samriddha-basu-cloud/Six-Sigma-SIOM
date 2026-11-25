@@ -1,6 +1,6 @@
 # SIOM Nashik · S2C2 · Six Sigma Consulting Projects 2027
 
-A slide-style web page for pitching Black Belt-level Lean Six Sigma (DMAIC / DMADV) projects to host companies, 20 January – 6 March 2027.
+A slide-style web page for pitching Black Belt-level Lean Six Sigma (DMAIC / DMADV) projects to host companies, 18 January – 27 February 2027.
 
 ## Open it
 - **On your laptop:** double-click `index.html`. It opens in any browser; no install needed.
