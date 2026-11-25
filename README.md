@@ -19,7 +19,7 @@ A slide-style web page for pitching Black Belt-level Lean Six Sigma (DMAIC / DMA
 4. Project requirements
 5. How the 6 weeks run (DMAIC timeline)
 6. Deliverables & certificate of completion
-7. Project ideas (about 80, searchable)
+7. Project ideas (about 90, searchable, incl. services)
 8. Past host companies
 9. Team & contact (all six S2C2 members)
 

@@ -436,7 +436,7 @@
         </div>
         <div class="card crit-group rv">
           <h3>Company fit</h3>
-          <div class="crit"><span>Sector</span><span>Manufacturing / industrial preferred; service sectors such as hospitals, hospitality and airports also welcome</span></div>
+          <div class="crit"><span>Sector</span><span>Manufacturing &amp; industrial preferred · services (hospitals, hospitality, airports) welcome</span></div>
           <div class="crit"><span>Company size</span><span>SME to large enterprise / conglomerate</span></div>
           <div class="crit"><span>Micro enterprises</span><span>Generally not preferred</span></div>
           <div class="crit"><span>Fee / stipend</span><span>None</span></div>
@@ -671,6 +671,15 @@ const PROJECTS = {
     ["Reducing scrap sent to landfill and improving scrap recovery value","Scrap ₹ recovered","Production, Stores, EHS, Finance","DMAIC"],
     ["Improving power factor and cutting maximum demand penalties","Power factor, penalty ₹","Utilities, Maintenance, Finance","DMAIC"]
   ],
+  "Services": [
+    ["Hospital: reducing patient discharge turnaround time","Discharge TAT hours","Nursing, Billing, Pharmacy, Housekeeping","DMAIC"],
+    ["Hospital: reducing OPD waiting time and improving patient flow","Average waiting minutes","Front Office, OPD, Diagnostics, IT","DMAIC"],
+    ["Hospital: reducing pharmacy and consumable stock-outs and expiry losses","Expiry ₹, stock-out count","Pharmacy, Purchase, Stores, Finance","DMAIC"],
+    ["Hospitality: reducing room turnaround time between check-out and check-in","Room-ready minutes","Housekeeping, Front Office, Maintenance","DMAIC"],
+    ["Hospitality: reducing food and beverage wastage in kitchens and buffets","Food waste kg, F&B cost %","Kitchen, F&B Service, Purchase, Stores","DMAIC"],
+    ["Airport: reducing baggage delivery time and mishandled bags","First/last bag minutes, mishandled per 1,000","Ground Handling, Airline Ops, Security, IT","DMAIC"],
+    ["Airport: reducing check-in and security queue waiting time","Queue minutes at peak","Terminal Ops, Security, Airline Ops, IT","DMAIC"]
+  ],
   "Design (DMADV)": [
     ["Designing a new cell or line layout for a product being localised","Throughput, floor space, travel distance","Production, Engineering, Industrial Engineering, Maintenance","DMADV"],
     ["Designing a kitting / milk-run material supply system for an assembly line","Line-side inventory, shortage stops","Stores, Production, Logistics, Planning","DMADV"],
@@ -822,7 +831,7 @@ const ic = {
 $("#team").innerHTML = TEAM.map(m => {
   const digits = m.p.replace(/\D/g,"");
   const ini = m.n.split(" ").map(w=>w[0]).join("").slice(0,2);
-  const subj = encodeURIComponent("Six Sigma project with SIOM (Jan–Mar 2027)");
+  const subj = encodeURIComponent("Six Sigma project with SIOM (18 Jan – 27 Feb 2027)");
   const wa = `https://wa.me/${digits}?text=${encodeURIComponent("Hello "+m.n.split(" ")[0]+", I'd like to discuss a Six Sigma project with SIOM.")}`;
   return `<div class="card member lift rv">
     <div class="member-top"><div class="avatar">${ini}</div><div><h4>${esc(m.n)}</h4><div class="role">S2C2 · SIOM Nashik</div></div></div>
